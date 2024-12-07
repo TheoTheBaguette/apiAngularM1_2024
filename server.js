@@ -38,11 +38,21 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Serveur démarré sur le port ${PORT}`);
+
+// Définir le port à utiliser pour l'application
+const port = process.env.PORT || 8080; // Utiliser le port de l'environnement ou 8080 par défaut
+
+// Serve only the static files from the dist directory
+app.use(express.static(__dirname + "/dist/assignment-app/browser"));
+
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname + "/dist/assignment-app/browser/index.html"));
 });
 
+// Démarrer l'application en écoutant sur le port défini
+app.listen(port, "0.0.0.0", () => {
+  console.log(`Serveur démarré sur le port ${port}`);
+});
 
 // les routes
 const prefix = '/api';
