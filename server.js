@@ -38,7 +38,11 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-let port = process.env.PORT || 8010;
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Serveur démarré sur le port ${PORT}`);
+});
+
 
 // les routes
 const prefix = '/api';
